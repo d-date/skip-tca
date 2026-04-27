@@ -1,0 +1,31 @@
+name: Skip transpile (Android)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  skip-build:
+    name: INCLUDE_SKIP=1 swift build
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Skip
+        uses: skiptools/actions/setup-skip@v1
+
+      - name: Cache SwiftPM
+        uses: actions/cache@v4
+        with:
+          path: |
+            .build
+            ~/Library/Caches/org.swift.swiftpm
+          key: ${{ runner.os }}-spm-skip-${{ hashFiles('Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-skip-
+
+      - name: Verify Skip transpile is happy
+        run: INCLUDE_SKIP=1 swift build

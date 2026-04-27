@@ -1,0 +1,44 @@
+name: Alloy specs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Specs/**'
+      - '.github/workflows/alloy.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'Specs/**'
+      - '.github/workflows/alloy.yml'
+
+jobs:
+  alloy-check:
+    name: alloy exec
+    runs-on: macos-26
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Alloy 6
+        run: brew install alloy-analyzer
+
+      - name: Show Alloy version
+        run: alloy --version || true
+
+      - name: Run all check commands
+        run: |
+          set -o pipefail
+          alloy exec -f -c '*' Specs/SkipTCA.als | tee alloy-output.txt
+          # `check` commands must report UNSAT — that means no
+          # counterexample was found at the chosen scope, i.e. the property
+          # holds. Anything else is a regression.
+          awk '
+            /^[0-9]+\. check/ {
+              if ($NF != "UNSAT") {
+                print "FAIL: " $0 " — expected UNSAT (property holds) but got " $NF >"/dev/stderr"
+                bad=1
+              }
+            }
+            END { exit bad ? 1 : 0 }
+          ' alloy-output.txt
