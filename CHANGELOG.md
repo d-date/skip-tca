@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- `Specs/SkipTCA.als` Alloy 6 model and the `alloy.yml` GitHub Actions workflow. Alloy was a useful spike-time sanity check, but the structural invariants it covered are already enforced by the Swift type system and the Swift Testing suite, so the extra dependency on the Alloy toolchain is not worth its CI cost.
+
 ## [0.1.0] - 2026-04-28
 
 ### Added
@@ -21,12 +25,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `PresentationState`, `PresentationAction`, `StackState` (array-backed), `StackAction` for navigation modeling.
 - `final class TestStore<State, Action>` for Swift Testing-based reducer tests with `send`, `receive`, `finish(timeout:)`, `dependencies`, and `Exhaustivity` mode. iOS only.
 - Swift Testing test suite (39 tests, 13 suites).
-- Alloy 6 model in `Specs/SkipTCA.als` checking 5 structural invariants:
-  - reducer determinism,
-  - `Effect` case disjointness,
-  - `EffectCancel` id provenance,
-  - `EffectRun` / `EffectCancellable` emit-element typing,
-  - store trace index non-negativity.
 - Initial public release as `github.com/d-date/skip-tca`.
 
 [Unreleased]: https://github.com/d-date/skip-tca/compare/0.1.0...HEAD

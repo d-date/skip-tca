@@ -65,7 +65,6 @@ class Counter: Reducer<Int, Action> {
 - ✅ Compiles and runs on iOS / macOS / watchOS / tvOS / visionOS.
 - ✅ Transpiles cleanly under Skip Lite 1.8.11+.
 - ✅ Swift Testing test suite (39 tests).
-- ✅ Alloy 6 model checks structural invariants (5 properties, scope 5).
 
 ## Installation
 
@@ -251,8 +250,6 @@ TCA team.
 ```bash
 swift test                            # run the Swift Testing suite
 INCLUDE_SKIP=1 swift build            # verify the Skip Lite transpiler is happy
-brew install alloy-analyzer           # install Alloy 6 if you don't have it yet
-alloy exec -f -c '*' Specs/SkipTCA.als  # check structural invariants
 ```
 
 ## Roadmap

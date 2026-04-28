@@ -13,10 +13,6 @@ DerivedData/
 # macOS
 .DS_Store
 
-# Alloy CLI output directories
-Specs/.alloy-output/
-Specs/SkipTCA/
-
 # Editor / IDE
 .vscode/
 .idea/

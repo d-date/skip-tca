@@ -10,8 +10,6 @@ git clone https://github.com/d-date/skip-tca.git
 cd skip-tca
 swift test                     # iOS-side test suite (Swift Testing)
 INCLUDE_SKIP=1 swift build     # confirm Skip Lite still transpiles
-brew install alloy-analyzer    # for the formal model
-alloy exec -f -c '*' Specs/SkipTCA.als
 ```
 
 You'll need:
@@ -47,14 +45,6 @@ not used in this project. Tests live in `Tests/SkipTCATests/`.
 Both iOS test runs (`swift test`) and Skip transpilation
 (`INCLUDE_SKIP=1 swift build`) must pass. Add coverage for any new public
 API.
-
-## Alloy model
-
-Structural invariants belong in `Specs/SkipTCA.als`. Add a new `assert ...`
-followed by `check ... for 5` whenever you introduce or change an algebraic
-property. Keep the model small — quantitative properties (sequence length,
-multiset equality) are better expressed in Swift Testing because Alloy's
-relational logic struggles with aggregation.
 
 ## Pull requests
 
