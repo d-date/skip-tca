@@ -16,6 +16,13 @@ jobs:
 
       - name: Setup Skip
         uses: skiptools/actions/setup-skip@v1
+        with:
+          # `skip doctor` calls a network endpoint to check for newer Skip
+          # releases. That call is flaky on GitHub-hosted runners and has
+          # already taken the workflow red once for an unrelated reason.
+          # We only need the toolchain installed; the doctor probe is not
+          # part of the contract this workflow asserts.
+          run-doctor: 'false'
 
       - name: Cache SwiftPM
         uses: actions/cache@v4
