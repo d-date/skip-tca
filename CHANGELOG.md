@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-05-04
+
+### Changed
+
+- **BREAKING**: `TestStore` moved from the `SkipTCA` library into a new `SkipTCATesting` library. Test code that previously imported `SkipTCA` for `TestStore` now needs `import SkipTCATesting`. This split prevents the main `SkipTCA` library from pulling `import Testing` (and transitively `_Testing_Foundation`) into every consumer, which broke Xcode App-target builds even though `swift build` succeeded.
+
 ### Removed
 
 - `Specs/SkipTCA.als` Alloy 6 model and the `alloy.yml` GitHub Actions workflow. Alloy was a useful spike-time sanity check, but the structural invariants it covered are already enforced by the Swift type system and the Swift Testing suite, so the extra dependency on the Alloy toolchain is not worth its CI cost.
@@ -27,5 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Swift Testing test suite (39 tests, 13 suites).
 - Initial public release as `github.com/d-date/skip-tca`.
 
-[Unreleased]: https://github.com/d-date/skip-tca/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/d-date/skip-tca/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/d-date/skip-tca/releases/tag/0.2.0
 [0.1.0]: https://github.com/d-date/skip-tca/releases/tag/0.1.0
