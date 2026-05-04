@@ -46,7 +46,11 @@ let package = Package(
     .library(
       name: "SkipTCA",
       targets: ["SkipTCA"]
-    )
+    ),
+    .library(
+      name: "SkipTCATesting",
+      targets: ["SkipTCATesting"]
+    ),
   ],
   dependencies: packageDependencies,
   targets: [
@@ -59,9 +63,16 @@ let package = Package(
       ],
       plugins: targetPlugins
     ),
+    .target(
+      name: "SkipTCATesting",
+      dependencies: ["SkipTCA"],
+      swiftSettings: [
+        .swiftLanguageMode(.v6)
+      ]
+    ),
     .testTarget(
       name: "SkipTCATests",
-      dependencies: ["SkipTCA"],
+      dependencies: ["SkipTCA", "SkipTCATesting"],
       swiftSettings: [
         .swiftLanguageMode(.v6)
       ]

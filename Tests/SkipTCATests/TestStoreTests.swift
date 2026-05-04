@@ -1,6 +1,7 @@
 #if !SKIP
 
   import Foundation
+  import SkipTCATesting
   import Testing
 
   @testable import SkipTCA

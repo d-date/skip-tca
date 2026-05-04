@@ -1,6 +1,7 @@
 #if !SKIP
 
   import Foundation
+  import SkipTCA
   import Testing
 
   /// A testable, exhaustive Store for use with Swift Testing.
